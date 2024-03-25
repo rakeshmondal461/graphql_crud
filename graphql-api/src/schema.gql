@@ -1,0 +1,31 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Customer {
+  email: String!
+  id: Float!
+  mobileNumber: String!
+}
+
+type Mutation {
+  createCustomer(createCustomerInput: createCustomerInput!): Customer!
+  removeCustomer(id: Int!): Customer!
+  updateCustomer(updateCustomerInput: UpdateCustomerInput!): Customer!
+}
+
+type Query {
+  customer(id: Int!): Customer!
+  customers: [Customer!]!
+}
+
+input UpdateCustomerInput {
+  email: String
+  id: Int!
+  mobileNumber: String
+}
+
+input createCustomerInput {
+  email: String!
+  mobileNumber: String!
+}
