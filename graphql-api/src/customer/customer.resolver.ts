@@ -26,6 +26,11 @@ export class CustomerResolver {
     return this.customerService.findOne(id);
   }
 
+  @Query(() => [Customer])
+  searchCustomers(@Args('name') name: string): Promise<Customer[]> {
+    return this.customerService.searchCustomers(name);
+  }
+
   @Mutation(() => Customer)
   updateCustomer(
     @Args('updateCustomerInput') updateCustomerInput: UpdateCustomerInput,

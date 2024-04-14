@@ -6,5 +6,7 @@ export class Customer {
   @Field()
   email: string;
   @Field()
+  name: string;
+  @Field()
   mobileNumber: string;
 }

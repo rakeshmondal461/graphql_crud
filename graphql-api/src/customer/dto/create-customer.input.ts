@@ -6,5 +6,8 @@ export class createCustomerInput {
   email: string;
 
   @Field()
+  name: string;
+
+  @Field()
   mobileNumber: string;
 }

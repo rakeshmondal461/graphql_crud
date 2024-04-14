@@ -10,8 +10,8 @@ export class CustomerService {
   constructor(@InjectRepository(Customer) private repo: Repository<Customer>) {}
 
   async create(createCustomerInput: createCustomerInput) {
-    const { email, mobileNumber } = createCustomerInput;
-    const customer = this.repo.create({ email, mobileNumber });
+    const { email, name, mobileNumber } = createCustomerInput;
+    const customer = this.repo.create({ email, name, mobileNumber });
     await this.repo.save(customer);
     return customer;
   }
@@ -32,6 +32,7 @@ export class CustomerService {
     });
     customerToUpdate.email = updateCustomerInput.email;
     customerToUpdate.mobileNumber = updateCustomerInput.mobileNumber;
+    customerToUpdate.name = updateCustomerInput.name;
 
     await this.repo.save(customerToUpdate);
     return customerToUpdate;
@@ -48,5 +49,16 @@ export class CustomerService {
     // Delete the user
     await this.repo.delete(id);
     return { ...userToDelete };
+  }
+
+  async searchCustomers(name: string): Promise<Customer[]> {
+    const query = this.repo
+      .createQueryBuilder('customer')
+      .where('LOWER(customer.name) LIKE LOWER(:name)', {
+        name: `%${name.toLowerCase()}%`,
+      });
+
+    const customers = await query.getMany();
+    return customers;
   }
 }

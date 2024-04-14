@@ -6,6 +6,7 @@ type Customer {
   email: String!
   id: Float!
   mobileNumber: String!
+  name: String!
 }
 
 type Mutation {
@@ -17,15 +18,18 @@ type Mutation {
 type Query {
   customer(id: Int!): Customer!
   customers: [Customer!]!
+  searchCustomers(name: String!): [Customer!]!
 }
 
 input UpdateCustomerInput {
   email: String
   id: Int!
   mobileNumber: String
+  name: String
 }
 
 input createCustomerInput {
   email: String!
   mobileNumber: String!
+  name: String!
 }
