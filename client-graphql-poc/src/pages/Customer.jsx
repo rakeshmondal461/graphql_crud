@@ -4,9 +4,12 @@ import AddCustomer from "../components/AddCustomer";
 import EditCustomer from "../components/EditCustomer";
 import { DELETE_CUSTOMER_MUTATION } from "../graphql/mutations";
 import { useMutation } from "@apollo/client";
+import SearchCustomerList from "../components/SearchCustomerList";
 
 const Customer = () => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
+
+  const [searchName, setSearchName] = useState("");
 
   const [
     removeCustomer,
@@ -47,10 +50,26 @@ const Customer = () => {
         ) : (
           <EditCustomer {...selectedCustomer} />
         )}
-        <CustomerList
-          setSelectedCustomer={setSelectedCustomer}
-          deleteCustomer={deleteCustomer}
-        />
+
+        <div style={{ marginBlock: "10px" }}>
+          <input
+            type="text"
+            placeholder="Search here..."
+            onChange={(e) => setSearchName(e.target.value)}
+          />
+        </div>
+        {!searchName ? (
+          <CustomerList
+            setSelectedCustomer={setSelectedCustomer}
+            deleteCustomer={deleteCustomer}
+          />
+        ) : (
+          <SearchCustomerList
+            setSelectedCustomer={setSelectedCustomer}
+            deleteCustomer={deleteCustomer}
+            searchName={searchName}
+          />
+        )}
       </main>
     </div>
   );

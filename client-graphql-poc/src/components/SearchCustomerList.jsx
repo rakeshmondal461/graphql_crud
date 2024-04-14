@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 
-const CUSTOMERS_QUERY = gql`
-  query GetCustomers {
-    customers {
+const SEARCH_QUERY = gql`
+  query Search($query: String!) {
+    searchCustomers(name: $query) {
       id
       name
       email
@@ -12,8 +12,14 @@ const CUSTOMERS_QUERY = gql`
   }
 `;
 
-const CustomerList = ({ setSelectedCustomer, deleteCustomer }) => {
-  const { loading, error, data } = useQuery(CUSTOMERS_QUERY);
+const SearchCustomerList = ({
+  setSelectedCustomer,
+  deleteCustomer,
+  searchName,
+}) => {
+  const { loading, error, data } = useQuery(SEARCH_QUERY, {
+    variables: { query: searchName },
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -34,7 +40,7 @@ const CustomerList = ({ setSelectedCustomer, deleteCustomer }) => {
           </tr>
         </thead>
         <tbody>
-          {data.customers.map((customer, index) => (
+          {data.searchCustomers.map((customer, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{customer.email}</td>
@@ -60,4 +66,4 @@ const CustomerList = ({ setSelectedCustomer, deleteCustomer }) => {
   );
 };
 
-export default CustomerList;
+export default SearchCustomerList;

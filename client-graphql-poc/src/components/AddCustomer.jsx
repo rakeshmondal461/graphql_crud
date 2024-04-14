@@ -4,6 +4,7 @@ import { ADD_CUSTOMER_MUTATION } from "../graphql/mutations";
 
 const AddCustomer = () => {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
 
   const [addCustomer, { data, loading, error }] = useMutation(
@@ -23,6 +24,7 @@ const AddCustomer = () => {
         variables: {
           createCustomerInput: {
             email: email,
+            name: name,
             mobileNumber: mobileNumber,
           },
         },
@@ -31,6 +33,7 @@ const AddCustomer = () => {
       console.log("Customer added:", result.data.addCustomer);
       console.log;
       setEmail("");
+      setName("");
       setMobileNumber("");
     } catch (error) {
       console.log(error);
@@ -47,6 +50,14 @@ const AddCustomer = () => {
           id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+        />
+        <br />
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <br />
         <label htmlFor="mob">Mobile Number:</label>

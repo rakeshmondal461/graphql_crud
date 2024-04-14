@@ -5,9 +5,11 @@ import { UPDATE_CUSTOMER_MUTATION } from "../graphql/mutations";
 const EditCustomer = ({
   email: selectedEmail,
   mobileNumber: selectedMobileNumber,
+  name: selectedName,
   id: selectedId,
 }) => {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [id, setId] = useState("");
 
@@ -23,6 +25,7 @@ const EditCustomer = ({
   useEffect(() => {
     setEmail(selectedEmail);
     setMobileNumber(selectedMobileNumber);
+    setName(selectedName);
     setId(selectedId);
   }, [selectedEmail, selectedMobileNumber, selectedId]);
 
@@ -35,6 +38,7 @@ const EditCustomer = ({
           updateCustomerInput: {
             email: email,
             id: id,
+            name: name,
             mobileNumber: mobileNumber,
           },
         },
@@ -59,6 +63,14 @@ const EditCustomer = ({
           id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+        />
+        <br />
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <br />
         <label htmlFor="mob">Mobile Number:</label>
